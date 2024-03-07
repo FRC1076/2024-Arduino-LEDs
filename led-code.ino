@@ -11,7 +11,7 @@
 #define PIN        6 // On Trinket or Gemma, suggest changing this to 1
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS 120
+#define NUMPIXELS 120 //needs to be increased for robot
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals. Note that for older NeoPixel
@@ -24,6 +24,8 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 const int dataPin1 = 8;
 const int dataPin2 = 9;
 const int dataPin3 = 10;
+int startPixel = 0;
+int endPixel = 50;
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -53,7 +55,8 @@ void loop() {
 
 
   //pixels.clear(); // Set all pixel colors to 'off'
-  numberToColor(inputAsNumber);
+  //numberToColor(inputAsNumber);
+  partialLights("right");
   pixels.show();   // Send the updated pixel colors to the hardware.
 }
 
@@ -120,6 +123,22 @@ void numberToColor(int number){
       break;
     default:
       displayColor("off");
+  }
+}
+
+void partialLights(String side){
+  if(side=="center"){
+    startPixel = 30;
+    endPixel = 60;
+  } else if(side=="left"){
+    startPixel = 0;
+    endPixel = 60;
+  } else if(side=="right"){
+    startPixel = 60;
+    endPixel = 90;
+  }
+  for(int i=startPixel; i<endPixel; i++){
+    pixels.setPixelColor(i, pixels.Color(80, 16, 140));
   }
 }
 
