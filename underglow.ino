@@ -54,7 +54,7 @@ void setup() {
 
 void loop() {
   // Fill along the length of the strip in various colors...
-  colorWipe(strip.Color(150, 30, 255), 100); // Purple
+  colorWipe(strip.Color(150, 30, 255), 75); // Purple
   colorWipe(strip.Color(  255, 255, 255), 50); // White
   pioneerColorsWipe(25); //PiHi colors
 
