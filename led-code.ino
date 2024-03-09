@@ -11,7 +11,7 @@
 #define PIN        6 // On Trinket or Gemma, suggest changing this to 1
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS 90 //needs to be increased for robot
+#define NUMPIXELS 25 //needs to be increased for robot
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals. Note that for older NeoPixel
@@ -28,7 +28,7 @@ int startPixel = 0;
 int endPixel = 50;
 bool flash = false;
 int timer = 0;
-int brightness = 100;
+int brightness = 50;
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -142,7 +142,7 @@ void numberToLights(int number){
       break;
     case 5: 
       pixels.clear();
-      displayColor("orange");
+      partialLights("center");
       flash = true;
       break;
     case 6:
@@ -156,18 +156,28 @@ void numberToLights(int number){
 }
 
 void partialLights(String side){
+int R, G, B;  
   if(side=="center"){
-    startPixel = 30;
-    endPixel = 60;
+    startPixel = 0;
+    endPixel = NUMPIXELS;
+    R = 255;
+    G = 166;
+    B = 0;
   } else if(side=="left"){
     startPixel = 0;
-    endPixel = 60;
+    endPixel = 10;
+    R = 0;
+    G = 63;
+    B = 92;
   } else if(side=="right"){
-    startPixel = 60;
-    endPixel = 90;
+    startPixel = 15;
+    endPixel = 25;
+    R = 188;
+    G = 80;
+    B = 144;
   }
   for(int i=startPixel; i<endPixel; i++){
-    pixels.setPixelColor(i, pixels.Color(140, 70, 0));
+    pixels.setPixelColor(i, pixels.Color(R, G, B));
   }
 }
 
