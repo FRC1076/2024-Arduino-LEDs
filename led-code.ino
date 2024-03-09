@@ -28,7 +28,8 @@ int startPixel = 0;
 int endPixel = 50;
 bool flash = false;
 int timer = 0;
-int brightness = 50;
+int defaultBrightness = 50;
+int brightness = defaultBrightness;
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -45,7 +46,6 @@ void setup() {
   pinMode(dataPin2, INPUT);
   pinMode(dataPin3, INPUT);
 
-  pixels.setBrightness(brightness);
 }
 
 void loop() {
@@ -58,6 +58,8 @@ void loop() {
 
   numberToLights(inputAsNumber); //convert the numbers into actual colors
 
+  pixels.setBrightness(brightness);
+  
   if(flash==true){
     if (timer < 50){
       pixels.show();
@@ -124,31 +126,37 @@ void numberToLights(int number){
       pixels.clear();
       displayColor("purple");
       flash = false;
+      brightness = (0.5*defaultBrightness);
       break;
     case 2:
       pixels.clear();
       displayColor("purple");
       flash = true;
+      brightness = (1.5*defaultBrightness);
       break;
     case 3:
       pixels.clear();
       partialLights("left");
       flash = false;
+      brightness = (1.5*defaultBrightness);
       break;
     case 4:
     pixels.clear();
       partialLights("right");
       flash = false;
+      brightness = defaultBrightness;
       break;
     case 5: 
       pixels.clear();
       partialLights("center");
       flash = true;
+      brightness = defaultBrightness;
       break;
     case 6:
       pixels.clear();
       displayColor("green");
       flash = true;
+      brightness = defaultBrightness;
       break;
     default:
       displayColor("off");
