@@ -11,7 +11,7 @@
 #define PIN        6 // On Trinket or Gemma, suggest changing this to 1
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS 120 //needs to be increased for robot
+#define NUMPIXELS 90 //needs to be increased for robot
 
 // When setting up the NeoPixel library, we tell it how many pixels,
 // and which pin to use to send signals. Note that for older NeoPixel
@@ -26,6 +26,9 @@ const int dataPin2 = 9;
 const int dataPin3 = 10;
 int startPixel = 0;
 int endPixel = 50;
+bool flash = false;
+unsigned long lastMillis;
+int timer = 0;
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -49,15 +52,27 @@ void loop() {
   int input3 = digitalRead(dataPin3);
   //inputs from PINs are read as input1 in the 1s place, input2 in the 2s place, input3 in the 4s place
   int inputAsNumber = input1 + (2*input2) + (4*input3);
-  Serial.println(inputAsNumber);
-  
-  //convert the numbers into actual colors
+  //Serial.println(inputAsNumber);
 
+  numberToLights(5); //convert the numbers into actual colors
 
-  //pixels.clear(); // Set all pixel colors to 'off'
-  //numberToColor(inputAsNumber);
-  partialLights("right");
-  pixels.show();   // Send the updated pixel colors to the hardware.
+  if(flash==true){
+    if (timer < 50){
+      pixels.show();
+      Serial.write("A");
+    } else if(timer < 100){
+      clearPixels();
+      Serial.write("B");
+    } else {
+      timer = 0;
+    }
+  } else {
+    pixels.show();
+    timer = 0;
+  }
+  ++timer;
+  Serial.println(timer);
+  Serial.write("\n");
 }
 
 void displayColor(String color){
@@ -67,8 +82,8 @@ int R, G, B;
     G = 0;
     B = 0;
   } else if(color == "orange"){
-    R = 102;
-    G = 66;
+    R = 140;
+    G = 70;
     B = 0;
   } else if(color == "yellow"){
     R = 90;
@@ -101,25 +116,37 @@ int R, G, B;
   }
 }
 
-void numberToColor(int number){
+void numberToLights(int number){
   switch(number){
     case 1:
-      displayColor("red");
+      pixels.clear();
+      displayColor("purple");
+      flash = false;
       break;
     case 2:
-      displayColor("orange");
+      pixels.clear();
+      displayColor("purple");
+      flash = true;
       break;
     case 3:
-      displayColor("yellow");
+      pixels.clear();
+      partialLights("left");
+      flash = false;
       break;
     case 4:
-      displayColor("green");
+    pixels.clear();
+      partialLights("right");
+      flash = false;
       break;
-    case 5:
-      displayColor("blue");
+    case 5: 
+      pixels.clear();
+      displayColor("orange");
+      flash = true;
       break;
     case 6:
-      displayColor("purple");
+      pixels.clear();
+      displayColor("green");
+      flash = true;
       break;
     default:
       displayColor("off");
@@ -138,8 +165,15 @@ void partialLights(String side){
     endPixel = 90;
   }
   for(int i=startPixel; i<endPixel; i++){
-    pixels.setPixelColor(i, pixels.Color(80, 16, 140));
+    pixels.setPixelColor(i, pixels.Color(140, 70, 0));
   }
+}
+
+void clearPixels(){
+  for (int i=0; i<NUMPIXELS; i++){
+    pixels.setPixelColor(i, pixels.Color(0, 0, 0));
+  }
+  pixels.show();
 }
 
 void schoolColors(){
