@@ -28,6 +28,7 @@ int startPixel = 0;
 int endPixel = 50;
 bool flash = false;
 int timer = 0;
+int brightness = 100;
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -43,6 +44,8 @@ void setup() {
   pinMode(dataPin1, INPUT);
   pinMode(dataPin2, INPUT);
   pinMode(dataPin3, INPUT);
+
+  pixels.setBrightness(brightness);
 }
 
 void loop() {
