@@ -27,7 +27,6 @@ const int dataPin3 = 10;
 int startPixel = 0;
 int endPixel = 50;
 bool flash = false;
-unsigned long lastMillis;
 int timer = 0;
 
 void setup() {
@@ -54,7 +53,7 @@ void loop() {
   int inputAsNumber = input1 + (2*input2) + (4*input3);
   //Serial.println(inputAsNumber);
 
-  numberToLights(5); //convert the numbers into actual colors
+  numberToLights(inputAsNumber); //convert the numbers into actual colors
 
   if(flash==true){
     if (timer < 50){
