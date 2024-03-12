@@ -29,8 +29,12 @@ const int dataPin2 = 9;
 const int dataPin3 = 10;
 
 bool flash = false; //do you want the lights to flash
+
+//timers
 int timer = 0; // timer for the normal lights
 int underglowTimer = 0; //timer for the underglow
+
+//brightness for informative lights
 int defaultBrightness = 70; //the default brightness of the lights
 int brightness = defaultBrightness; //how bright the lights will be at this moment
 
