@@ -31,13 +31,16 @@ const int dataPin3 = 10;
 bool flash = false; //do you want the lights to flash
 int timer = 0; // timer for the normal lights
 int underglowTimer = 0; //timer for the underglow
-int defaultBrightness = 50; //the default brightness of the lights
+int defaultBrightness = 70; //the default brightness of the lights
 int brightness = defaultBrightness; //how bright the lights will be at this moment
-const int underglowBrightness = 100; //brightness of the underglow, max 255
 
 //stuff used later in the code
 int startPixel = 0;
 int endPixel = 50;
+
+//underglow stuff
+const bool underglowEnabled = true; //do you want the under glow on?
+const int underglowBrightness = 100; //brightness of the underglow, max 255
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -81,7 +84,9 @@ void loop() {
     pixels.show();
     timer = 0;
   }
-  underglow();
+  if(underglowEnabled == true){
+    underglow();
+  }
   ++timer;
   //Serial.println(timer);
 }
