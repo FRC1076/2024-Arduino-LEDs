@@ -42,7 +42,7 @@ int brightness = defaultBrightness; //how bright the lights will be at this mome
 int startPixel = 0;
 int endPixel = 50;
 
-//underglow stuff
+//undergl ow stuff
 const bool underglowEnabled = true; //do you want the under glow on?
 const int underglowBrightness = 100; //brightness of the underglow, max 255
 
@@ -187,13 +187,13 @@ int R, G, B;
     R = 255;
     G = 166;
     B = 0;
-  } else if(side=="left"){
+  } else if(side=="right"){
     startPixel = 0;
     endPixel = floor(0.5 * NUMPIXELS);
     R = 0;
     G = 63;
     B = 92;
-  } else if(side=="right"){
+  } else if(side=="left"){
     startPixel = ceil(0.5 * NUMPIXELS);
     endPixel = NUMPIXELS;
     R = 188;
