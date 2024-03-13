@@ -106,8 +106,8 @@ int R, G, B;
     G = 70;
     B = 0;
   } else if(color == "yellow"){
-    R = 90;
-    G = 90;
+    R = 255;
+    G = 166;
     B = 0;
   } else if(color == "green"){
     R = 0;
@@ -115,8 +115,8 @@ int R, G, B;
     B = 0;
   } else if(color == "blue"){
     R = 0;
-    G = 0;
-    B = 120;
+    G = 63;
+    B = 92;
   } else if(color == "purple"){
     R = 80;
     G = 16;
@@ -125,6 +125,10 @@ int R, G, B;
     R = 70;
     G = 70;
     B = 70;
+  } else if(color == "pink"){
+    R = 188;
+    G = 80;
+    B = 144;
   } else if(color == "off"){
     R = 0;
     G = 0;
@@ -139,37 +143,37 @@ int R, G, B;
 void numberToLights(int number){
   switch(number){
     case 1:
-      clearPixels();
+      //clearPixels();
       displayColor("purple");
       flash = false;
       brightness = (0.5*defaultBrightness);
       break;
     case 2:
-      clearPixels();
+      //clearPixels();
       displayColor("purple");
       flash = true;
       brightness = (1.5*defaultBrightness);
       break;
     case 3:
-      clearPixels();
-      partialLights("left");
+      //clearPixels();
+      displayColor("pink");
       flash = false;
       brightness = (1.5*defaultBrightness);
       break;
     case 4:
-      clearPixels();
-      partialLights("right");
+      //clearPixels();
+      displayColor("blue");
       flash = false;
       brightness = defaultBrightness;
       break;
     case 5: 
-      clearPixels();
-      partialLights("center");
+      //clearPixels();
+      displayColor("yellow");
       flash = true;
       brightness = defaultBrightness;
       break;
     case 6:
-      clearPixels();
+      //clearPixels();
       displayColor("green");
       flash = true;
       brightness = defaultBrightness;
