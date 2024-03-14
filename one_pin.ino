@@ -43,7 +43,7 @@ int startPixel = 0;
 int endPixel = 50;
 
 //undergl ow stuff
-const bool underglowEnabled = true; //do you want the under glow on?
+const bool underglowEnabled = false; //do you want the under glow on?
 const int underglowBrightness = 255; //brightness of the underglow, max 255
 
 void setup() {
@@ -69,22 +69,24 @@ void loop() {
   int input3 = digitalRead(dataPin3);
   //inputs from PINs are read as input1 in the 1s place, input2 in the 2s place, input3 in the 4s place
   int inputAsNumber = input1 + (2*input2) + (4*input3) + 1;
-  Serial.println(inputAsNumber);
+
+  pixels.setBrightness(brightness);
 
   numberToLights(inputAsNumber); //convert the numbers into actual colors
-  pixels.setBrightness(brightness);
   
   if(flash==true){
-    if (timer < 30){
+    if (timer < 3){
       pixels.show();
-      Serial.write("A");
-    } else if(timer < 60){
+      Serial.write("Flashing...\n");
+    } else if(timer < 6){
       clearPixels();
-      Serial.write("B");
+      Serial.write("Un-Flashing...\n");
     } else {
+      Serial.write("Flash timer over...\n");
       timer = 0;
     }
   } else {
+    Serial.println("Default show without flash...");
     pixels.show();
     timer = 0;
   }
@@ -93,6 +95,7 @@ void loop() {
   }
   ++timer;
   //Serial.println(timer);
+  //delay(10000);
 }
 
 void displayColor(String color){
@@ -115,8 +118,8 @@ int R, G, B;
     B = 0;
   } else if(color == "blue"){
     R = 0;
-    G = 95;
-    B = 138;
+    G = 63;
+    B = 92;
   } else if(color == "purple"){
     R = 80;
     G = 16;
@@ -130,9 +133,9 @@ int R, G, B;
     G = 70;
     B = 70;
   } else if(color == "pink"){
-    R = 188;
-    G = 80;
-    B = 144;
+    R = 255;
+    G = 99;
+    B = 97;
   } else if(color == "off"){
     R = 0;
     G = 0;
@@ -145,44 +148,48 @@ int R, G, B;
 }
 
 void numberToLights(int number){
+  Serial.write("numberToLights(");
+  Serial.print(number);
+  Serial.write(")...\n");
   switch(number){
     case 1:
-      //clearPixels();
+      Serial.println("State: default");
       displayColor("dark-purple");
       flash = false;
-      //brightness = (0.5*defaultBrightness);
+      brightness = (0.5*defaultBrightness);
       break;
     case 2:
-      //clearPixels();
+      Serial.println("State: note has been intaked");
       displayColor("purple");
       flash = true;
-      //brightness = (1.5*defaultBrightness);
+      brightness = defaultBrightness;
       break;
     case 3:
-      //clearPixels();
-      displayColor("pink");
-      flash = false;
-      //brightness = (1.5*defaultBrightness);
-      break;
-    case 4:
-      //clearPixels();
+      Serial.println("State: note detected to the right");
       displayColor("blue");
       flash = false;
-      //brightness = defaultBrightness;
+      brightness = (0.5*defaultBrightness);
+      break;
+    case 4:
+      Serial.println("State: note detected to the left");
+      displayColor("pink");
+      flash = false;
+      brightness = (0.5*defaultBrightness);
       break;
     case 5: 
-      //clearPixels();
+      Serial.println("State: note detected in the center");
       displayColor("yellow");
       flash = true;
-      //brightness = defaultBrightness;
+      brightness = defaultBrightness;
       break;
     case 6:
-      //clearPixels();
-      displayColor("green");
+      Serial.println("State: Speaker AprilTag detected");
+      displayColor("blue");
       flash = true;
-      //brightness = defaultBrightness;
+      brightness = defaultBrightness;
       break;
     default:
+      Serial.println("State: LED off");
       displayColor("off");
       flash = false;
   }
@@ -246,14 +253,4 @@ void underglow(){
   pixels.show();
   ++underglowTimer;
   //Serial.println(underglowTimer);
-}
-
-void schoolColors(){
-for(int i=0; i<NUMPIXELS; i++) { // For each pixel...
-    if(i % 2){
-      pixels.setPixelColor(i, pixels.Color(80, 16, 140));
-    } else {
-    pixels.setPixelColor(i, pixels.Color(70, 70, 70));
-    }
-  }
 }
