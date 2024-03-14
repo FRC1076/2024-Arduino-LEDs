@@ -35,7 +35,7 @@ int timer = 0; // timer for the normal lights
 int underglowTimer = 0; //timer for the underglow
 
 //brightness for informative lights
-int defaultBrightness = 70; //the default brightness of the lights
+int defaultBrightness = 255; //the default brightness of the lights
 int brightness = defaultBrightness; //how bright the lights will be at this moment
 
 //stuff used later in the code
@@ -44,7 +44,7 @@ int endPixel = 50;
 
 //undergl ow stuff
 const bool underglowEnabled = true; //do you want the under glow on?
-const int underglowBrightness = 100; //brightness of the underglow, max 255
+const int underglowBrightness = 255; //brightness of the underglow, max 255
 
 void setup() {
   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
@@ -68,8 +68,8 @@ void loop() {
   int input2 = digitalRead(dataPin2);
   int input3 = digitalRead(dataPin3);
   //inputs from PINs are read as input1 in the 1s place, input2 in the 2s place, input3 in the 4s place
-  int inputAsNumber = input1 + (2*input2) + (4*input3);
-  //Serial.println(inputAsNumber);
+  int inputAsNumber = input1 + (2*input2) + (4*input3) + 1;
+  Serial.println(inputAsNumber);
 
   numberToLights(inputAsNumber); //convert the numbers into actual colors
   pixels.setBrightness(brightness);
@@ -115,12 +115,16 @@ int R, G, B;
     B = 0;
   } else if(color == "blue"){
     R = 0;
-    G = 63;
-    B = 92;
+    G = 95;
+    B = 138;
   } else if(color == "purple"){
     R = 80;
     G = 16;
     B = 140;
+  } else if(color = "dark-purple"){
+    R = 20;
+    G = 4;
+    B = 35;
   } else if(color == "white"){
     R = 70;
     G = 70;
@@ -144,42 +148,43 @@ void numberToLights(int number){
   switch(number){
     case 1:
       //clearPixels();
-      displayColor("purple");
+      displayColor("dark-purple");
       flash = false;
-      brightness = (0.5*defaultBrightness);
+      //brightness = (0.5*defaultBrightness);
       break;
     case 2:
       //clearPixels();
       displayColor("purple");
       flash = true;
-      brightness = (1.5*defaultBrightness);
+      //brightness = (1.5*defaultBrightness);
       break;
     case 3:
       //clearPixels();
       displayColor("pink");
       flash = false;
-      brightness = (1.5*defaultBrightness);
+      //brightness = (1.5*defaultBrightness);
       break;
     case 4:
       //clearPixels();
       displayColor("blue");
       flash = false;
-      brightness = defaultBrightness;
+      //brightness = defaultBrightness;
       break;
     case 5: 
       //clearPixels();
       displayColor("yellow");
       flash = true;
-      brightness = defaultBrightness;
+      //brightness = defaultBrightness;
       break;
     case 6:
       //clearPixels();
       displayColor("green");
       flash = true;
-      brightness = defaultBrightness;
+      //brightness = defaultBrightness;
       break;
     default:
       displayColor("off");
+      flash = false;
   }
 }
 
@@ -221,11 +226,11 @@ void underglow(){
   const int underglowSecondTime = underglowFirstTime + (NUMPIXELSUNDERGLOW * 3);
   const int underglowThirdTime = underglowSecondTime + (NUMPIXELSUNDERGLOW * 2);
 
-  pixels.setBrightness(underglowBrightness);
+  //pixels.setBrightness(underglowBrightness);
 
   if(underglowTimer < underglowFirstTime){
     if(underglowTimer % 5 == 0){
-      pixels.setPixelColor(((underglowTimer/5)+NUMPIXELS), pixels.Color(150, 30, 255));
+      pixels.setPixelColor(((underglowTimer/5)+NUMPIXELS), pixels.Color(180, 50, 255));
     }
   } else if (underglowTimer < underglowSecondTime){
       if ((underglowTimer - underglowFirstTime) % 3 == 0){
@@ -233,14 +238,14 @@ void underglow(){
       }
   } else if (underglowTimer < underglowThirdTime){
       if ((underglowTimer - underglowSecondTime) % 4 == 0){
-        pixels.setPixelColor(((2 * (underglowTimer - underglowSecondTime)/4)+NUMPIXELS), pixels.Color(150, 30, 255));
+        pixels.setPixelColor(((2 * (underglowTimer - underglowSecondTime)/4)+NUMPIXELS), pixels.Color(180, 50, 255));
       }
   } else {
     underglowTimer = 0;
   }
   pixels.show();
   ++underglowTimer;
-  Serial.println(underglowTimer);
+  //Serial.println(underglowTimer);
 }
 
 void schoolColors(){
