@@ -171,15 +171,15 @@ int R, G, B;
     R = 255;
     G = 166;
     B = 0;
-  } else if(side=="left"){
+  } else if(side=="right"){
     startPixel = 0;
-    endPixel = 10;
+    endPixel = 30;
     R = 0;
     G = 63;
     B = 92;
-  } else if(side=="right"){
-    startPixel = 15;
-    endPixel = 25;
+  } else if(side=="left"){
+    startPixel = 31;
+    endPixel = 61;
     R = 188;
     G = 80;
     B = 144;
