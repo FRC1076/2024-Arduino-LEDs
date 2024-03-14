@@ -21,9 +21,9 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 #define DELAYVAL 0 // Time (in milliseconds) to pause between pixels
 
-const int dataPin1 = 8;
-const int dataPin2 = 9;
-const int dataPin3 = 10;
+const int dataPin1 = 10;
+const int dataPin2 = 11;
+const int dataPin3 = 12;
 int startPixel = 0;
 int endPixel = 50;
 bool flash = false;
