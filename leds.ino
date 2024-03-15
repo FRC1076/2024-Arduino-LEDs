@@ -61,7 +61,7 @@ void loop() {
   int input2 = digitalRead(dataPin2);
   int input3 = digitalRead(dataPin3);
   //inputs from PINs are read as input1 in the 1s place, input2 in the 2s place, input3 in the 4s place
-  int inputAsNumber = input1 + (2*input2) + (4*input3) + 1;
+  int inputAsNumber = input1 + (2*input2) + (4*input3);
 
   pixels.setBrightness(brightness);
 
@@ -118,9 +118,9 @@ int R, G, B;
     G = 16;
     B = 140;
   } else if(color = "dark-purple"){
-    R = 20;
-    G = 4;
-    B = 35;
+    R = 30;
+    G = 6;
+    B = 53;
   } else if(color == "white"){
     R = 70;
     G = 70;
@@ -167,7 +167,7 @@ void numberToLights(int number){
       Serial.println("State: note detected to the left");
       displayColor("pink");
       flash = false;
-      brightness = (0.5*defaultBrightness);
+      brightness = (defaultBrightness);
       break;
     case 5: 
       Serial.println("State: note detected in the center");
@@ -177,7 +177,7 @@ void numberToLights(int number){
       break;
     case 6:
       Serial.println("State: Speaker AprilTag detected");
-      displayColor("blue");
+      displayColor("green");
       flash = true;
       brightness = defaultBrightness;
       break;
