@@ -1,14 +1,7 @@
-// NeoPixel Ring simple sketch (c) 2013 Shae Erisson
-// Released under the GPLv3 license to match the rest of the
-// Adafruit NeoPixel library
-
 #include <Adafruit_NeoPixel.h>
-#ifdef __AVR__
- #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
-#endif
 
 // Which pin on the Arduino is connected to the NeoPixels?
-#define PIN        6 // On Trinket or Gemma, suggest changing this to 1
+#define PIN        6 
 
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS 61
@@ -24,9 +17,9 @@ Adafruit_NeoPixel pixels(NUMPIXELSTOTAL, PIN, NEO_GRB + NEO_KHZ800);
 #define DELAYVAL 0 // Time (in milliseconds) to pause between pixels
 
 //pins for data
-const int dataPin1 = 8;
-const int dataPin2 = 9;
-const int dataPin3 = 10;
+const int dataPin1 = 10;
+const int dataPin2 = 11;
+const int dataPin3 = 12;
 
 bool flash = false; //do you want the lights to flash
 
@@ -43,7 +36,7 @@ int startPixel = 0;
 int endPixel = 50;
 
 //undergl ow stuff
-const bool underglowEnabled = false; //do you want the under glow on?
+const bool underglowEnabled = true; //do you want the under glow on?
 const int underglowBrightness = 255; //brightness of the underglow, max 255
 
 void setup() {
