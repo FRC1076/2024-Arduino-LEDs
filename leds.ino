@@ -222,18 +222,18 @@ void clearPixels(){
 }
 
 void underglow(){
-  const int underglowFirstTime = NUMPIXELSUNDERGLOW * 5;
-  const int underglowSecondTime = underglowFirstTime + (NUMPIXELSUNDERGLOW * 3);
+  const int underglowFirstTime = NUMPIXELSUNDERGLOW * 3;
+  const int underglowSecondTime = underglowFirstTime + (NUMPIXELSUNDERGLOW * 2);
   const int underglowThirdTime = underglowSecondTime + (NUMPIXELSUNDERGLOW * 2);
 
   //pixels.setBrightness(underglowBrightness);
 
   if(underglowTimer < underglowFirstTime){
-    if(underglowTimer % 5 == 0){
+    if(underglowTimer % 3 == 0){
       pixels.setPixelColor(((underglowTimer/5)+NUMPIXELS), pixels.Color(180, 50, 255));
     }
   } else if (underglowTimer < underglowSecondTime){
-      if ((underglowTimer - underglowFirstTime) % 3 == 0){
+      if ((underglowTimer - underglowFirstTime) % 2 == 0){
         pixels.setPixelColor((((underglowTimer - underglowFirstTime)/3)+NUMPIXELS), pixels.Color(255, 255, 255));
       }
   } else if (underglowTimer < underglowThirdTime){
